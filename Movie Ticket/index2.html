@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    
+</head>
+    
+<body>
+    
+    
+    
+    
+    <div id="ModalView-1" data-role="modalview" style="width: 70%; height: 270px;">
+        <div data-role="header">
+            <div data-role="navbar">
+
+              <span>Login</span>
+              <a data-click="closeBtnHandler"
+                data-role="button"
+                data-align="right">
+
+                Cancel
+              </a>
+
+            </div>
+          </div>
+
+          <ul data-role="listview"
+            data-style="inset">
+
+            <li>
+              <label for="username">Username:</label>
+              <input type="text" id="username" />
+            </li>
+            <li>
+              <label for="password">Password:</label>
+              <input type="password" id="password" />
+            </li>
+
+          </ul>
+
+          <a data-click="loginBtnHandler"
+            type="button"
+            data-role="button"
+            style="margin-left: 40%;">
+
+            Login
+          </a>
+          <a data-click="registerBtnHandler"
+            type="button"
+            data-role="button">
+
+            Register
+          </a>
+    </div>
+    <div id="view1" data-role="view" data-layout="defaultLayout" data-title="About">
+          <span class="button" data-role="button" id="login">
+        		In Login view
+      	</span>
+
+     	 <span class="button" data-role="button" id="signup">
+        		In Sign Up view
+      	</span>
+        
+        
+        <a data-role="button" data-icon="camera" href="#ModalView-1" data-rel="modalview">Button</a>
+        <input type="checkbox" data-role="switch">
+    </div>
+
+    <div id="view2" data-role="view" data-layout="defaultLayout" data-title="Setting">
+        
+        
+        <form action="./index.html">
+
+          <ul data-role="listview" data-style="inset">
+
+            <li>
+              <label>Full Name</label>
+              <input type="text" placeholder="Full Name"/>  
+            </li>
+
+            <li>
+              <label>Password</label>
+              <input type="password" placeholder="Password" />
+            </li>
+
+            <li>
+              <label>Email</label>
+              <input type="email" placeholder="username@domain.com" />
+            </li>
+
+            <li>
+              <label>Date of Birth</label>
+              <input type="date" />
+            </li>
+
+            <li>
+              <label>Education</label>
+              <select>
+                <option value="Bachelors">Bachelors</option>
+                <option value="Masters">Masters</option>
+                <option value="Postgraduation">Post Graduation</option>
+              </select>
+            </li>
+
+          </ul>
+
+          <ul data-role="listview"
+            data-style="inset" data-type="group">
+            <li>Gender
+            <ul>
+            <li>
+                <label>Test</label><input type="text" value="Text" />
+            </li>
+            <li>
+              <label><input name="units" type="radio" checked="checked" />MALE</label>
+            </li>
+            <li>
+              <label><input name="units" type="radio" />FEMALE</label>
+              </li>
+            </ul>
+            </li>
+            <li>
+              <button type="submit" data-role="button">Submit</button>
+            </li>
+          </ul>
+        </form>
+    </div>
+    <div  id="view3" data-role="view" data-init="view_init" data-title="view3" data-layout="defaultLayout">
+
+      <div id="dataSource" data-layout="defaultLayout"  data-role="listview" data-style="inset" >
+        
+        <ul id="listViewContainer">
+
+        </ul>
+        
+    </div>
+
+    </div>
+    
+    <div data-role="view" data-init="initialize" id="view_myList" data-layout="defaultLayout" data-title="My List"> 
+    		<ul id="myList" data-style="inset" data-role="listview" ></ul>
+        	<ul data-role="listview" data-style="inset">
+                <li>Add Contact<a data-role="detailbutton" data-style="contactadd"></a></li>
+                <li>More Details<a data-role="detailbutton" data-style="detaildisclose"></a></li>
+                <li>Insert Movie<a data-role="detailbutton" data-style="rowinsert"></a></li>
+                <li>Delete Movie<a data-role="detailbutton" data-style="rowdelete"></a></li>
+            </ul>
+    </div>
+ 
+    
+    <!--Other touch events
+    <div data-role="view"
+      id="touchWidgetContainer">
+
+      <div id="touchSurface"
+        data-role="touch"
+        data-touchstart="touchstart"
+        data-tap="tap"
+        data-doubletap="doubletap"
+        data-hold="hold"
+        data-enable-swipe="true"        
+        data-swipe="swipe">
+        Touch surface to handle various touch events<br>
+        Touch, tap, double-tap, swipe and hold
+      </div>
+    </div>-->
+        
+        
+    
+    <div data-role="layout" data-id="defaultLayout">
+  			<header data-role="header">
+    			<div data-role="navbar">
+           
+                  My first application
+                    <a data-role="backbutton" data-align="left">Back</a>
+           		<div data-role="view-title"></div>
+       </div>
+  			</header>
+        
+  			<footer data-role="footer">
+    			<div data-role="tabstrip">
+      				<a data-icon="about" href="#view1">About</a>
+          <a data-role="button" data-icon="favorites" href="#view_myList">Button</a>
+          <a data-role="button" data-icon="mostviewed" href="#view3">Button</a>
+          <a data-role="button" data-icon="organize" href="#view3">Data</a>
+      				<a data-icon="settings" href="#view2">Settings</a>
+     			</div>
+  			</footer>
+	</div>
+    
+    
+    
+    <!--Template-->
+    <script type="text/x-kendo-template" id="list-template">       
+      <a> #= name # hello </a>
+        
+    </script>
+    
+    
+    <script>
+        var app = new kendo.mobile.Application(document.body, {
+          transition: "slide" //also zoom,fade, overlay
+        });              
+      
+        
+        $('#login').on('click', function (event) {
+          	app.navigate('#view2');
+        })
+
+        $('#signup').on('click', function (event) {
+          	app.navigate('#view3');
+        }); 
+        
+        
+       
+        function view3_init(){
+            
+            alert('view3 loaded first time');
+        }
+        
+        
+        
+        
+        /*
+        *Listview Stuff
+        */
+        function initialize(){
+            $("#myList").kendoMobileListView({
+                dataSource: ["Olympus Has Fallen","Jurassic Park 3D","G.I. Joe: Retaliation"]
+            });
+        }
+        
+        //datasource example 2
+       /*
+        var listElements = ['Her', 'Gravity', '12 Years A Slave',  'Captain Phillips', 'American Hustle',
+                  'The Wolf Of Wall Street', 'Nebraska',
+                  'Dallas Buyers Club', 'Philomena'];
+
+        $('#listViewContainer').kendoMobileListView({
+          dataSource: listElements
+        });
+      */
+        
+         
+        var listElements = [
+          {name: 'Her', image: 'her.jpg'},
+          {name: 'Gravity', image: 'gravity.jpg'},
+          {name: '12 Years A Slave', image: '12_years_a_slave.jpg'},
+          {name: 'Captain Phillips', image: 'captain_phillips.jpg'},
+          {name: 'American Hustle', image: 'american_hustle.jpg'},
+          {name: 'The Wolf Of Wall Street', image: 'wolf_of_wall_street.jpg'},
+          {name: 'Nebraska', image: 'nebraska.jpg'},
+          {name: 'Dallas Buyers Club', image: 'dallas_buyers_club.jpg'},
+          {name: 'Philomena', image: 'philomena.jpg'}
+        ];
+        
+        $('#listViewContainer').kendoMobileListView({
+          dataSource: listElements,
+          template: $('#list-template').html()
+        });
+          
+        
+    </script>
+    
+    
+   </body>
+</html>

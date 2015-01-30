@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <style>
+    .km-scrollview > div > [data-role=page]{ 
+    	white-space: pre-wrap; /*or normal*/ 
+    }
+    </style>
+</head>
+
+<body>
+ 
+ <!--Layout-->
+ <div data-id="defaultLayout" data-role="layout">
+        <header data-role="header">
+            <div data-role="navbar">
+                My first application 
+                <a data-align="left" data-role="backbutton">Back</a>
+
+                <div data-role="view-title"></div>
+            </div>
+        </header>
+
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a data-icon="about" href="#scroller">About</a> 
+                <a data-icon="favorites" data-role="button" href="#scrollview">Button</a>
+                <a data-icon="mostviewed" data-role="button" href="#touchableDiv">Button</a> 
+                <a data-icon="organize" data-role="button" data-transition="slide:right" href="#mainView">Button</a> 
+                <a data-icon="settings" href="#mainView">Settings</a>
+            </div>
+        </footer>
+ </div>   
+ 
+    
+ <!--Pages-->   
+    
+ <div data-init="viewInit" data-role="view" id="scroller" data-layout="defaultLayout"> 
+     <div data-role="scroller" data-zoom="true" id="scrollSection" style="height: 200px;text-align: center;">
+        <span id="scrollContent" style="font-size: 150px;">100</span>
+     </div>    
+ </div>
+ <div id="View1" data-init="viewInit" data-role="view" data-layout="defaultLayout"> 
+     <div data-role="scroller" data-zoom="true" style="height: 200px;text-align: center;">
+        <span style="font-size: 150px;">100</span>
+     </div>    
+ </div>
+    
+
+    
+ <div data-role="view" data-layout="defaultLayout" id="scrollview">
+    <div data-role="scrollview" data-duration="3000" data-change="pageChange" style="padding-top: 15px;">
+    <div data-role="page">
+        <h1>Tip1</h1>
+        In ScrollView, remove all white spaces
+        between page HTML elements. Otherwise,
+        white spaces will appear as pages in
+        the rendered ScrollView. 
+    </div><div data-role="page">
+        <h1>Tip2 </h1>
+        You can set the time taken in milliseconds 
+        by the ScrollView to settle down the current 
+        page after the using the duration property.
+    </div><div data-role="page">
+        <h1>Tip3 </h1>
+        scrollTo() method can be used to navigate
+        to a specific page in the ScrollView. 
+    </div></div>
+</div>   
+    
+  <div data-init="viewInit" data-role="view" id="touchableDiv" style="height: 200px; width: 200px; background-color: darkgreen;" data-layout="defaultLayout">
+      <div id="innerDiv" style="height: 100px; width: 100px; background-color: white;"></div>
+      <div id="eventLog"> </div>
+ </div>   
+ <!--Script-->   
+ <script>
+	var app = new kendo.mobile.Application(document.body);
+     function viewInit(e) {
+        //get reference of the scroller 
+        var scroller = $("#scrollSection").data("kendoMobileScroller");
+        //set scroller options
+        scroller.setOptions({
+            pullToRefresh: true,
+            //pull event is fired when user pulls beyond 
+            //value set using pullOffset
+            pull: refresh,
+            //set the boundary after which the pull will
+            //fire the pull event default value is 140
+            pullOffset: 100,
+            pullTemplate: "<i>Pull to update the number<\/i>",
+            releaseTemplate: "Release to update the number",
+            refreshTemplate: "Updating..."
+        });
+    }
+
+    function refresh() {
+        //create a random number between 1 and 1000
+        var newNumber = Math.floor((Math.random() * 1000) + 1);
+        var scroller = $("#scrollSection").data("kendoMobileScroller");
+        //update the contents inside the scroller
+        scroller.scrollElement.find('#scrollContent').text(newNumber);
+        //pullHandled method removes the contents
+        //in the refresh template and positions the u
+        //updated contents to the initial view
+        scroller.pullHandled();
+    }
+     
+     
+    function pageChange(e){
+        //logs the current page number.
+        console.log(e.page); 
+    } 
+     
+     
+    function viewInit(e) {
+    $('#touchableDiv').kendoTouch({
+        tap: handleTouchEvent,       
+        doubletap: handleTouchEvent,
+        hold: handleTouchEvent,
+        touchstart: handleTouchEvent,
+        touchend: handleTouchEvent,
+        dragstart: handleTouchEvent,
+        dragend: handleTouchEvent,
+        swipe:swipeEvent,
+    });
+}
+
+function handleTouchEvent(e) {
+    console.log(e);
+    //Touch properties
+    //id of the actual HTML element
+    //which was touched. if we touch the div
+    //with id innerDiv, output will be 'innerDiv'
+    console.log("actual touch on: " + e.touch.initialTouch.id);
+    //parent touch widget which was touched.
+    console.log("current target id: " + e.touch.currentTarget.id);
+    //Touch offset relative to the entire document 
+    console.log("x.location: " + e.touch.x.location + " y.location: " + e.touch.y.location);
+    //Touch offset relative to the viewport
+    console.log("x.client: " + e.touch.x.client + " y.client: " + e.touch.y.client);
+    //Velocity of the touch event in pixels
+    // per millisecond.
+    console.log("x.velocity: " + e.touch.x.velocity + " y.velocity: " + e.touch.y.velocity);
+    //Epoch timestamp
+    console.log("x.timeStamp: " + e.touch.x.timeStamp + " y.timeStamp: " + e.touch.y.timeStamp);
+    //Event Properties
+    console.log("Event Type: " + e.event.type);
+}
+     
+function swipeEvent(e){
+        $('#eventLog').append('Swipe registered....' + 'Direction: ' + e.direction + '<br/>'); 
+}
+ </script>  
+</body>
+</html>

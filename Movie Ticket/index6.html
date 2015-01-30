@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <style>
+    .no-backbutton .km-back { 
+            visibility: hidden; 
+        } 
+    </style>
+</head>
+
+<body>
+    <style>
+#btnGroup .km-button
+    {
+        background-color: green;
+        color: white;
+    }
+    #btnGroup .km-state-active
+    {
+        background-color: maroon; 
+    }
+    </style>
+
+    <div data-id="defaultLayout" data-role="layout">
+        <header data-role="header">
+            <div data-role="navbar">
+                My first application <a data-align="left" data-role=
+                "backbutton">Back</a>
+
+                <div data-role="view-title"></div>
+            </div>
+        </header>
+
+        <footer data-role="footer">
+            <div data-role="tabstrip">
+                <a data-icon="about" href="#view1">About</a> <a data-icon=
+                "favorites" data-role="button" href="#buttondroup">Button</a>
+                <a data-icon="mostviewed" data-role="button" href=
+                "#listButtons">Button</a> <a data-icon="organize" data-role=
+                "button" data-transition="slide:right" href=
+                "#mainView">Button</a> <a data-icon="settings" href=
+                "#mainView">Settings</a>
+            </div>
+        </footer>
+    </div><!--Pages-->
+
+    <div data-role="view">
+        <a data-rel="popover" data-role="button" href="#popOverWidget">Select
+        Movie</a>
+
+        <div data-pane="{'transition':'zoom', 'layout':'popoverLayout'}"
+        data-popup="{'height':170}" data-role="popover" id="popOverWidget">
+            <!-- Layout -->
+
+            <div data-id="popoverLayout" data-role="layout">
+                <div data-role="header">
+                    <a data-role="backbutton">Back</a>
+                </div>
+
+                <div data-role="footer"></div>
+            </div><!-- main menu view-->
+
+            <div class="no-backbutton" data-role="view" id="view-main">
+                <ul data-role="listview">
+                    <li>
+                        <a href="#view-comedy">Comedy (3)</a>
+                    </li>
+
+                    <li>
+                        <a href="#view-action">Action (2)</a>
+                    </li>
+                </ul>
+            </div><!-- Comedy Menu View-->
+
+            <div data-role="view" id="view-comedy">
+                <ul data-role="listview">
+                    <li>
+                        <a href="#view-final?movie=Hangover%20III">Hangover
+                        III</a>
+                    </li>
+
+                    <li>
+                        <a href="#view-final?movie=Scary%20Movie">Scary
+                        Movie</a>
+                    </li>
+
+                    <li>
+                        <a href="#view-final?movie=Ted">Ted</a>
+                    </li>
+                </ul>
+            </div><!-- Action Menu View-->
+
+            <div data-role="view" id="view-action">
+                <ul data-role="listview">
+                    <li>
+                        <a href="#view-final?movie=Iron%20Man%203">Iron Man
+                        3</a>
+                    </li>
+
+                    <li>
+                        <a href="#view-final?movie=After%20Earth">After
+                        Earth</a>
+                    </li>
+                </ul>
+            </div><!-- Final View-->
+
+            <div data-role="view" data-show="finalViewShow" id="view-final">
+                <h3>You selected:</h3>
+
+                <h2><!-- Selected movie name will be 
+displayed in this span --> <span id="spanMovieName"></span></h2>
+            </div>
+        </div>
+    </div><script>
+var app = new kendo.mobile.Application(document.body);
+    //Function to be called when the view is shown every time
+    function finalViewShow(e) {
+    //show the movie name in the view
+    $('#spanMovieName').text(e.view.params.movie);
+    }
+    </script>
+</body>
+</html>

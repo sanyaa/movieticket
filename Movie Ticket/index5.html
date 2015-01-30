@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    
+</head>
+    
+<body>
+<div data-role="layout" data-id="defaultLayout">
+  <header data-role="header">
+    	<div data-role="navbar">           
+            My first application
+            <a data-role="backbutton" data-align="left">Back</a>
+        	<div data-role="view-title"></div>
+       </div>
+  </header>
+        
+  <footer data-role="footer">
+      <div data-role="tabstrip">
+       	<a data-icon="about" href="#v1">About</a>
+           <a data-role="button" data-icon="favorites" href="#v2">Button</a>
+           <a data-role="button" data-icon="mostviewed" href="#listButtons">Button</a>
+           <a data-role="button" data-icon="organize" href="#mainView" data-transition="slide:right">Button</a>
+       	<a data-icon="settings" href="#mainView">Settings</a>
+       </div>
+  </footer>
+</div>
+ 
+ <!--Pages-->   
+<div data-role="view" data-layout="defaultLayout" id='v1'>
+  <a data-role="button" href="#foo" data-rel="popover">Open PopOver</a>
+
+  <div id="foo" data-role="popover" data-pane='{ "initial": "#view2" }'>
+    <div data-role="view" id="view1" data-title="view1">
+      View 1
+    </div>
+    <div data-role="view" id="view2" data-title="view2">
+      View 2 is loaded
+        this <h1>hello</h1>
+    </div>
+ </div>
+    
+</div>
+    
+    
+    
+<div data-role="view" data-init="init" data-layout="defaultLayout" id="v2">
+    <a data-role="button" href="#popOverWidget" data-rel="popover">Select Genre</a>
+    <div id="popOverWidget" >
+        <div data-role="view">
+            <ul data-role="listview">
+                <li> <a href="#">Comedy (9)</a> </li>
+                <li> <a href="#">Action (10)</a> </li>
+                <li> <a href="#">Romantic (5)</a> </li> 
+        	</ul>
+        </div>
+    </div>
+</div>
+    
+<script>
+	var app = new kendo.mobile.Application(document.body);
+    function init(){
+        $('#popOverWidget').kendoMobilePopOver({
+        	popup: { height: '130px' }
+        });
+    }
+</script>
+    
+ </body>
+      
+</html>

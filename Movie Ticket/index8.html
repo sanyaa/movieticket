@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet">
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+ <div data-role="splitview">
+        <div data-role="pane">
+            <!-- Master view -->
+
+            <div data-role="view" data-title="Genre">
+                <ul data-role="listview" data-style="=inset">
+                    <li>
+                        <a data-target="pane-detail" href="#view-detail?genre=Drama">Drama</a>
+                    </li>
+
+                    <li>
+                        <a data-target="pane-detail" href="#view-detail?genre=Horror">Horror</a>
+                    </li>
+
+                    <li>
+                        <a data-target="pane-detail" href="#view-detail?genre=Family">Family</a>
+                    </li>
+
+                    <li>
+                        <a data-target="pane-detail" href="#view-detail?genre=History">History</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div data-role="pane" id="pane-detail">
+            <!-- Detail view -->
+
+            <div data-role="view" data-show="detailViewShown" id="view-detail" style="font-size: 16px; padding: 10px">
+                <strong>Selected Genre:</strong> 
+                <strong>
+                <!--Selected genre will be written here -->
+                 <span id="selected-genre" style="color:green"></span>                    
+                </strong>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+		var app = new kendo.mobile.Application(document.body);
+    	function detailViewShown(e){
+    		//Read the selected genre from the query string
+    		$('#view-detail #selected-genre').text(e.view.params.genre);
+    	}
+    </script>   
+</body>
+</html>
