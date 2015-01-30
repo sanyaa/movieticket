@@ -10,7 +10,300 @@
     <script src="kendo/js/kendo.mobile.min.js"></script>
     
 </head>
+    
 <body>
     
+    <div data-role="view" id="scrollviewContainer" data-layout="defaultLayout">
+
+      <div data-role="scrollview">
+
+        <div data-role="page">
+          pool 1
+        </div><div data-role="page">
+          pool 2
+        </div><div data-role="page">
+          pool 3
+        </div><div data-role="page">
+          pool 4
+        </div>
+      </div>
+
+    </div>
+    
+    
+    <div id="ModalView-1" data-role="modalview" style="width: 70%; height: 270px;">
+        <div data-role="header">
+            <div data-role="navbar">
+
+              <span>Login</span>
+              <a data-click="closeBtnHandler"
+                data-role="button"
+                data-align="right">
+
+                Cancel
+              </a>
+
+            </div>
+          </div>
+
+          <ul data-role="listview"
+            data-style="inset">
+
+            <li>
+              <label for="username">Username:</label>
+              <input type="text" id="username" />
+            </li>
+            <li>
+              <label for="password">Password:</label>
+              <input type="password" id="password" />
+            </li>
+
+          </ul>
+
+          <a data-click="loginBtnHandler"
+            type="button"
+            data-role="button"
+            style="margin-left: 40%;">
+
+            Login
+          </a>
+          <a data-click="registerBtnHandler"
+            type="button"
+            data-role="button">
+
+            Register
+          </a>
+    </div>
+    <div id="view1" data-role="view" data-layout="defaultLayout" data-title="About">
+          <span class="button" data-role="button" id="login">
+        		In Login view
+      	</span>
+
+     	 <span class="button" data-role="button" id="signup">
+        		In Sign Up view
+      	</span>
+        
+        
+        <a data-role="button" data-icon="camera" href="#ModalView-1" data-rel="modalview">Button</a>
+    </div>
+
+    <div id="view2" data-role="view" data-layout="defaultLayout" data-title="Setting">
+        
+        
+        <form action="./index.html">
+
+          <ul data-role="listview" data-style="inset">
+
+            <li>
+              <label>Full Name</label>
+              <input type="text" placeholder="Full Name"/>  
+            </li>
+
+            <li>
+              <label>Password</label>
+              <input type="password" placeholder="Password" />
+            </li>
+
+            <li>
+              <label>Email</label>
+              <input type="email" placeholder="username@domain.com" />
+            </li>
+
+            <li>
+              <label>Date of Birth</label>
+              <input type="date" />
+            </li>
+
+            <li>
+              <label>Education</label>
+              <select>
+                <option value="Bachelors">Bachelors</option>
+                <option value="Masters">Masters</option>
+                <option value="Postgraduation">Post Graduation</option>
+              </select>
+            </li>
+
+          </ul>
+
+          <ul data-role="listview" data-style="inset" data-type="group">
+            <li>Gender
+            <ul>
+            <li>
+                <label>Test</label><input type="text" value="Text" />
+            </li>
+            <li>
+              <label><input name="units" type="radio" checked="checked" />MALE</label>
+            </li>
+            <li>
+              <label><input name="units" type="radio" />FEMALE</label>
+              </li>
+            </ul>
+            </li>
+            <li>
+              <button type="submit" data-role="button">Submit</button>
+            </li>
+          </ul>
+        </form>
+    </div>
+    <div  id="view3" data-role="view" data-init="flatlistviewinit" data-title="view3" data-layout="defaultLayout">
+
+      <ul id="flatlistview"></ul>
+
+    </div>
+    
+    <div data-role="view" id="touchWidgetContainer" data-layout="defaultLayout" data-title="Touch">
+
+  	<div id="touchSurface" data-role="touch" data-touchstart="touchstart" data-tap="tap">
+    		This is a touch surface.
+  	</div>
+
+	</div>
+    
+    <!--Other touch events
+    <div data-role="view"
+      id="touchWidgetContainer">
+
+      <div id="touchSurface"
+        data-role="touch"
+        data-touchstart="touchstart"
+        data-tap="tap"
+        data-doubletap="doubletap"
+        data-hold="hold"
+        data-enable-swipe="true"        
+        data-swipe="swipe">
+        Touch surface to handle various touch events<br>
+        Touch, tap, double-tap, swipe and hold
+      </div>
+    </div>-->
+    
+    <div data-role="layout" data-id="defaultLayout">
+  			<header data-role="header">
+    			<div data-role="navbar">
+           
+                  My first application
+                    <a data-role="backbutton" data-align="left">Back</a>
+           		<div data-role="view-title"></div>
+       </div>
+  			</header>
+        
+  			<footer data-role="footer">
+    			<div data-role="tabstrip">
+      				<a data-icon="about" href="#view1">About</a>
+          <a data-role="button" data-icon="favorites" href="#scrollviewContainer">Button</a>
+          <a data-role="button" data-icon="mostviewed" href="#view3">Button</a>
+          <a data-role="button" data-icon="organize" href="#View4" data-transition="slide:right">Button</a>
+      				<a data-icon="settings" href="#view2">Settings</a>
+     			</div>
+  			</footer>
+	</div>
+    
+    
+    <script>
+        var app = new kendo.mobile.Application(document.body, {
+          transition: "slide" //also zoom,fade, overlay
+        });
+                
+      
+        
+        $('#login').on('click', function (event) {
+          	app.navigate('#view2');
+        });
+
+        $('#signup').on('click', function (event) {
+          	app.navigate('#view3');
+        }); 
+        
+        
+        //touch/tab events
+        //----------------------------------------
+        function touchstart(event) {
+          alert('Event - Touch Start' + " X= " + event.touch.x.location + " Y= " + event.touch.y.location);
+        }
+        function tap(event) {
+            alert("Event - tap");
+        }
+        
+        
+        // populate list view via datasource
+        //-----------------------------------------
+        var flatData = ["Australia", "Barbados", "Canada", "Denmark", "Egypt", "Finland", "Germany", "Hungary", "India", "Japan"];
+			
+        
+        function flatlistviewinit(){
+
+          $('#flatlistview').kendoMobileListView({
+            dataSource: flatData
+          });
+
+        }
+        
+        var groupedData = [
+          {name: "Ghana", continent: "Africa"},
+          {name: "India", continent: "Asia"},
+          {name: "Australia", continent: "Oceania"},
+          {name: "France", continent: "Europe"},
+          {name: "Mexico", continent: "N. AMERICA"},
+          {name: "Sri Lanka", continent: "Asia"},
+          {name: "Argentina", continent: "S. AMERICA"},
+          {name: "Kenya", continent: "Africa"},
+          {name: "Italy", continent: "Europe"},
+          {name: "United States", continent: "N. AMERICA"},
+          {name: "New Zealand", continent: "Oceania"},
+          {name: "Brazil", continent: "S. AMERICA"},
+       ];
+       
+       function groupedlistviewinit() {
+          $('#groupedlistview').kendoMobileListView({
+            dataSource: kendo.data.DataSource.create({
+              data: groupedData, group: "continent"
+            }),
+            template: '${name}',
+            fixedHeaders: true
+          });
+        }
+    </script>
+    
+    
+    <div id="View4" data-role="view" data-layout="defaultLayout">
+        
+        <!-- list view 1 //-->
+        <ul data-role="listview" data-style="inset" data-type="flat" >            
+            <li data-icon="globe">ListItem 1</li>
+            <li>
+                <a>ListView Link</a>
+            </li>            
+        </ul>        
+        
+        <!-- list view 2 //-->
+        <ul data-role="listview" data-style="inset" data-type="group">
+
+            <li>Default Buttons
+              <ul>
+                <li>
+                  <a>Add </a>
+                  <a data-role="detailbutton" data-style="contactadd">
+                  </a>
+                </li>
+                <li>
+                  <a>Close </a>
+                  <a data-role="detailbutton" data-style="detaildisclose">
+                  </a>
+                </li>
+                <li>
+                  <a>Insert </a>
+                  <a data-role="detailbutton" data-style="rowinsert">
+                  </a>
+                </li>
+                <li>
+                  <a>Delete </a>
+                    <a data-role="detailbutton" data-style="rowdelete">
+                    </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
+
+    </div>
 </body>
 </html>
